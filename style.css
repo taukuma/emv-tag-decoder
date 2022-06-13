@@ -1,3 +1,7 @@
+.app-title, .app-description {
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 1em;
+}
 #tlvdata-table {
   text-align: center;
 }
@@ -17,6 +21,7 @@
   border-collapse:  collapse;
   text-align: left;
   font-size: 12px;
+  font-family: 'Roboto', sans-serif;
 }
 #tlvdata-table table th,
 #tlvdata-table table td {
