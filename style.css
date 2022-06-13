@@ -1,0 +1,40 @@
+#tlvdata-table {
+  text-align: center;
+}
+#tlvdata-table div.original-data {
+  padding: 5px;}
+#tlvdata-table div.original-data p {
+  margin:0
+}
+#tlvdata-table div.original-data span {
+  padding-right: 1em;
+  font-weight: bold;
+  display: inline-block;
+  width: 100px;
+}
+#tlvdata-table>table {
+  display: inline-block;
+  border-collapse:  collapse;
+  text-align: left;
+  font-size: 12px;
+}
+#tlvdata-table table th,
+#tlvdata-table table td {
+  border: 1px solid #aaa;
+  padding: 5px 10px;
+}
+#tlvdata-table table thead th {
+  background: #eee;
+  color: #000;
+}
+#tlvdata-table table tbody th {
+  background: #f7f7f7;
+  font-weight: bold;
+}
+#tlvdata-table table tbody th .tlv-tag-name {
+  font-weight: normal;
+}
+#tlvdata-table table tbody .tlv-tag-description{
+  background: #ffe;
+  font-style: italic
+}
