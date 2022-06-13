@@ -46,26 +46,6 @@ var TLV = {
     //return result
     return tlvdata;
   },
-  UI: {
-    clearTLV: () => {
-      document.querySelector("#tlvdata").value = "";
-      if (document.querySelector("#tlvdata-table table") !== null) {
-        document.querySelector("#tlvdata-table table").remove();
-      }
-    },
-    tlvAnalyze: () => {
-      var data = TLV.Analyze( document.querySelector("#tlvdata").value);
-      console.log(data);
-      document.querySelector("#tlvdata-table").innerHTML = `
-        <table>
-          <thead><tr><th style="width:15%">Tag</th><th style="width: 50%;">Value</th><th style="with:35%">Tag Description</th></tr></thead>
-          <tbody>
-            ${data.map(d => `<tr><th>${d.tag}<br><span class="tlv-tag-name">${d.name}</span></th><td><div class="original-data"><p><span>Length</span> ${d.length}</p><p><span>Original Data</span> ${d.value}</p></div>${(d.value_decoded !== "" ? `<div style="padding: 10px; background:#f3faff;"><b style="display:block;">Decoded Value</b>${d.value_decoded}</div>`: "")} </td><td class="tlv-tag-description">${d.description.replace(/\n/g,"<br>")}</td></tr>`).join("")}
-          </tbody>
-        </table>
-      `;
-    }
-  },
   AdditionalAnalyzer: {
     cvm: (cvm, tvr, tsi, aip) => { //Cardholder Verification Method Result Explanation based on EMV Book4 additional info
       if (cvm === undefined || tvr === undefined || tsi === undefined || aip === undefined) {
