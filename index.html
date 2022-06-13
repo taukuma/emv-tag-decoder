@@ -7,17 +7,37 @@
     <script type="text/javascript" src="tlv_analyzer.js"></script>
   </head>
   <body>
-    <h1>EMV Tag Analyzer</h1>
+    <h1>EMV Tag Decoder</h1>
+    <div>This app decodes EMV tags and values in Tag-Length-Value (TLV) format based on EMV Book 3 and Book 4 (and Book C series for contactless payment).</div>
+    <div>See also <a href="https://github.com/taukuma/emv-tag-decoder">Github repo</a></div>
     <div>
       <div style="margin:1em 5em 1em 0em; max-width:1200px">
         <p id="message" style="color:red"></p>
-        <textarea id="tlvdata" rows="10" style="width:100%; resize: vertical;" placeholder='501254657374205061796D656E74204272616E645F20095445535420555345525F24032212315F25030907015F280208405F2A0203925F300202015F340101820258008407A00000000000008A023030950502800080009A032203039B02E8009C01009F02060000000001009F03060000000000009F0607A00000000000009F0702FF009F080200969F0902008C9F0D05F0400088009F0E0500100000009F0F05F0400098009F1007060112036000009F1101019F120A5445535420424C414E449F1A0203929F1C0830303030303030309F1E0830303030303030309F21031608279F2608FFFFFFFFFFFFFFFF9F2701409F3303E0B8C89F34031E03009F3501229F36020A019F3704FFFFFFFF9F4104000000179F4502FFFF'></textarea>
+        <textarea id="tlvdata" rows="10" style="width:100%; resize: vertical;" placeholder='501254657374205061796D656E74204272616E64...501254657374205061796D656E74204272616E645F20095445535420555345525F24032212315F25030907015F280208405F2A0203925F300202015F340101820258008407A00000000000008A023030950502800080009A032203039B02E8009C01009F02060000000001009F03060000000000009F0607A00000000000009F0702FF009F080200969F0902008C9F0D05F0400088009F0E0500100000009F0F05F0400098009F1007060112036000009F1101019F120A5445535420424C414E449F1A0203929F1C0830303030303030309F1E0830303030303030309F21031608279F2608FFFFFFFFFFFFFFFF9F2701409F3303E0B8C89F34031E03009F3501229F36020A019F3704FFFFFFFF9F4104000000179F4502FFFF'></textarea>
         <div style="text-align:right;">
-          <button class="btn btn-negative" style="display: inline-block; padding: 0.5em 1em; text-decoration: none; color: #FFF; border-radius: 3px; background: #afafaf; border:none; outline: none;" onclick="TLV.UI.clearTLV()">Clear</button>
-          <button class="btn btn-primary"  style="display: inline-block; padding: 0.5em 1em; text-decoration: none; color: #FFF; border-radius: 3px; background: #668ad8; border:none; outline: none;" onclick="TLV.UI.tlvAnalyze()">Analyze</button>
+          <button class="btn btn-negative" style="display: inline-block; padding: 0.5em 1em; text-decoration: none; color: #FFF; border-radius: 3px; background: #afafaf; border:none; outline: none;" onclick="clearTLV()">Clear</button>
+          <button class="btn btn-primary"  style="display: inline-block; padding: 0.5em 1em; text-decoration: none; color: #FFF; border-radius: 3px; background: #668ad8; border:none; outline: none;" onclick="tlvAnalyze()">Analyze</button>
         </div>
       <div>
       <div id="tlvdata-table"></div>
     </div>
+  <script>
+  let clearTLV = () => {
+    document.querySelector("#tlvdata").value = "";
+    if (document.querySelector("#tlvdata-table table") !== null) {
+      document.querySelector("#tlvdata-table table").remove();
+    }
+  };
+  let tlvAnalyze = () => {
+    var data = TLV.Analyze( document.querySelector("#tlvdata").value);
+    document.querySelector("#tlvdata-table").innerHTML = `
+      <table>
+        <thead><tr><th style="width:15%">Tag</th><th style="width: 50%;">Value</th><th style="with:35%">Tag Description</th></tr></thead>
+        <tbody>
+          ${data.map(d => `<tr><th>${d.tag}<br><span class="tlv-tag-name">${d.name}</span></th><td><div class="original-data"><p><span>Length</span> ${d.length}</p><p><span>Original Data</span> ${d.value}</p></div>${(d.value_decoded !== "" ? `<div style="padding: 10px; background:#f3faff;"><b style="display:block;">Decoded Value</b>${d.value_decoded}</div>`: "")} </td><td class="tlv-tag-description">${d.description.replace(/\n/g,"<br>")}</td></tr>`).join("")}
+        </tbody>
+      </table>`;
+  };
+  </script>
   </body>
 </html>
