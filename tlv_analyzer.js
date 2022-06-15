@@ -117,7 +117,7 @@ var TLV = {
       }
       
       //change it to html;
-      return '<table style="border-collapse: collapse;">' + result.map(r => `<tr style="border-bottom: 1px solid #eee;"><td style="border:none; padding: 2px;vertical-align:top;">${r.byte} (${r.bin})</td><td style="border:none; padding: 2px;vertical-align:top;">=></td><td style="border:none; padding: 2px;vertical-align:top;">${(r.result.length) ? r.result.map(tr => `[${tr.bin}] ${tr.meaning}`).join("<br>") : ""}</td></tr>`).join("") + '</table>'
+      return '<table style="border-collapse: collapse;">' + result.map(r => `<tr style="border-bottom: 1px solid #eee;"><td style="border:none; padding: 2px;vertical-align:top;">${r.byte} (${r.bin})</td><td style="border:none; padding: 2px;vertical-align:top;">=></td><td style="border:none; padding: 2px;vertical-align:top;">${(r.result.length) ? r.result.map(tr => `<b>[${tr.bin}]</b> ${tr.meaning}`).join("<br>") : ""}</td></tr>`).join("") + '</table>'
     },
     Hex2Bin: (str) => (parseInt(str, 16).toString(2)).padStart(8, '0'),
     Hex2Dec: (str) => parseInt(str,16),
